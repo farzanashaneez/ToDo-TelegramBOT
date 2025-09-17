@@ -5,7 +5,7 @@ export interface IGroupRepository {
   findById(id: string): Promise<Group | null>;
   findByName(name: string): Promise<Group | null>;
   findAll(): Promise<Group[]>;
-  findByUserId(userId: string): Promise<Group[]>;
+  findByUserId(userId: string|undefined): Promise<Group[]>;
   update(id: string, group: Partial<Group>): Promise<Group | null>;
   delete(id: string): Promise<boolean>;
   addMember(groupId: string, userId: string): Promise<boolean>;

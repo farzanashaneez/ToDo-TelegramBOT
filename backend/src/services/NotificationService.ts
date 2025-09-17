@@ -1,15 +1,16 @@
+// src/services/NotificationService.ts
 import cron from 'node-cron';
 import { TaskUseCase } from '../domain/usecases/TaskUseCase';
 import { UserUseCase } from '../domain/usecases/UserUseCase';
 import { NotificationRepository } from '../repositories/NotificationRepository';
-import { TelegramBotService } from '../infrastructure/telegram/TelegramBot';
+import { TelegrafBotService } from '@/infrastructure/telegram/TelegrafBot';
 
 export class NotificationService {
   constructor(
     private taskUseCase: TaskUseCase,
     private userUseCase: UserUseCase,
     private notificationRepository: NotificationRepository,
-    private telegramBot: TelegramBotService
+    private telegramBot: TelegrafBotService
   ) {
     this.initializeScheduler();
   }
@@ -159,3 +160,4 @@ export class NotificationService {
     }
   }
 }
+

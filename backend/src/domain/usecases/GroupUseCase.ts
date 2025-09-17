@@ -41,7 +41,7 @@ export class GroupUseCase {
       return await this.groupRepository.removeMember(groupId, userId);
     }
   
-    async getUserGroups(userId: string): Promise<Group[]> {
+    async getUserGroups(userId: string|undefined): Promise<Group[]> {
       return await this.groupRepository.findByUserId(userId);
     }
   
