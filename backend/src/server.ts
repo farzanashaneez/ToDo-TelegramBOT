@@ -1,9 +1,10 @@
+// src/server.ts
 import { App } from './app';
 import { config } from './config/config';
 
 async function startServer() {
   try {
-    console.log('Starting Telegram ToDo Bot Server...');
+    console.log('🔧 Starting Telegram ToDo Bot Server...');
     console.log(`Environment: ${config.nodeEnv}`);
     console.log(`Port: ${config.port}`);
 
@@ -22,12 +23,12 @@ async function startServer() {
       
       server.close((err) => {
         if (err) {
-          console.error(' Error during server shutdown:', err);
+          console.error('❌ Error during server shutdown:', err);
           process.exit(1);
         }
         
-        console.log(' HTTP server closed');
-        console.log(' Process terminated gracefully');
+        console.log('🔄 HTTP server closed');
+        console.log('👋 Process terminated gracefully');
         process.exit(0);
       });
     };
@@ -38,17 +39,17 @@ async function startServer() {
 
     // Handle uncaught exceptions
     process.on('uncaughtException', (error) => {
-      console.error('Uncaught Exception:', error);
+      console.error('💥 Uncaught Exception:', error);
       process.exit(1);
     });
 
     process.on('unhandledRejection', (reason, promise) => {
-      console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+      console.error('💥 Unhandled Rejection at:', promise, 'reason:', reason);
       process.exit(1);
     });
 
   } catch (error) {
-    console.error('Failed to start server:', error);
+    console.error('💥 Failed to start server:', error);
     process.exit(1);
   }
 }

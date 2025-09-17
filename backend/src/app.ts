@@ -1,3 +1,5 @@
+
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -27,13 +29,13 @@ import { TaskController } from './controllers/TaskController';
 import { AuthMiddleware } from './middleware/auth.middleware';
 
 // Import services
-import { TelegramBotService } from './infrastructure/telegram/TelegramBot';
 import { NotificationService } from './services/NotificationService';
 import { TaskService } from './services/TaskService';
+import { TelegrafBotService } from './infrastructure/telegram/TelegrafBot';
 
 export class App {
   private app: express.Application;
-  private telegramBot!: TelegramBotService;
+  private telegramBot!: TelegrafBotService;
   private notificationService!: NotificationService;
 
   constructor() {
@@ -83,7 +85,10 @@ export class App {
     const authMiddleware = new AuthMiddleware();
 
     // Initialize Telegram Bot
-    this.telegramBot = new TelegramBotService(userUseCase, groupUseCase, taskUseCase);
+    this.telegramBot = new TelegrafBotService(userUseCase, groupUseCase, taskUseCase);
+
+    // Launch the bot
+    this.telegramBot.startBot();
 
     // Initialize services
     this.notificationService = new NotificationService(
@@ -104,7 +109,7 @@ export class App {
 
   private initializeErrorHandling() {
     // 404 handler
-    this.app.use('*', (req, res) => {
+    this.app.use( (req, res) => {
       res.status(404).json({
         success: false,
         message: `Route ${req.originalUrl} not found`
@@ -114,7 +119,7 @@ export class App {
     // Global error handler
     this.app.use(errorHandler);
 
-    console.log(' Error handling initialized');
+    console.log('✅ Error handling initialized');
   }
 
   public async initialize(): Promise<express.Application> {
@@ -131,7 +136,7 @@ export class App {
       console.log('🚀 Application initialized successfully');
       return this.app;
     } catch (error) {
-      console.error(' Failed to initialize application:', error);
+      console.error('❌ Failed to initialize application:', error);
       process.exit(1);
     }
   }
@@ -140,3 +145,4 @@ export class App {
     return this.app;
   }
 }
+

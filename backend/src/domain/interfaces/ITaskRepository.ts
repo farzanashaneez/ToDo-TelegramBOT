@@ -5,7 +5,7 @@ export interface ITaskRepository {
   create(task: Task): Promise<Task>;
   findById(id: string): Promise<Task | null>;
   findAll(): Promise<Task[]>;
-  findByUserId(userId: string): Promise<Task[]>;
+  findByUserId(userId: string|undefined): Promise<Task[]>;
   findByGroupId(groupId: string): Promise<Task[]>;
   findByDateRange(startDate: Date, endDate: Date): Promise<Task[]>;
   findTasksNearDeadline(hours: number): Promise<Task[]>;

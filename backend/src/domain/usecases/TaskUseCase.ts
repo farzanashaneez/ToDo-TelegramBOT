@@ -64,7 +64,7 @@ export class TaskUseCase {
     return task;
   }
 
-  async getUserTasks(userId: string): Promise<Task[]> {
+  async getUserTasks(userId: string|undefined): Promise<Task[]> {
     return await this.taskRepository.findByUserId(userId);
   }
 
@@ -76,13 +76,13 @@ export class TaskUseCase {
     return await this.taskRepository.findByDateRange(startDate, endDate);
   }
 
-  async markTaskComplete(taskId: string, userId: string): Promise<Task | null> {
+  async markTaskComplete(taskId: string, userId: string|undefined): Promise<Task | null> {
     const task = await this.taskRepository.findById(taskId);
     if (!task) {
       throw new Error('Task not found');
     }
 
-    if (!task.assignedTo.includes(userId)) {
+    if (userId && !task.assignedTo.includes(userId)) {
       throw new Error('Task not assigned to this user');
     }
 
